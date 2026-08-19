@@ -533,7 +533,237 @@ flowchart TD
 > **Mất kết nối:** Giữ trạng thái hiện tại → đồng bộ lại khi kết nối được khôi phục.
 
 
+# B8. Quy tắc nghiệp vụ và ngoại lệ
 
+## Business Rule
+
+| Mã | Business Rule | Cách xử lý |
+|---|---|---|
+| **BR-01** | Không có tài xế | Thông báo cho khách hàng **không tìm được tài xế phù hợp** và kết thúc yêu cầu đặt xe. |
+| **BR-02** | Tài xế từ chối/không phản hồi | Hệ thống **tự động tìm tài xế khác**, khách hàng không cần đặt lại. |
+| **BR-03** | Thanh toán thất bại | Thông báo cho khách hàng và **cho phép thanh toán lại** theo chính sách của doanh nghiệp. |
+| **BR-04** | Tài xế hoàn thành chuyến | Hệ thống chuyển trạng thái chuyến sang **Hoàn thành** và tiến hành tính cước. |
+| **BR-05** | Người dùng chưa đăng nhập | Không cho phép sử dụng các chức năng yêu cầu tài khoản. |
+| **BR-06** | Mất kết nối | Giữ lại trạng thái/dữ liệu cần thiết và đồng bộ lại khi kết nối được khôi phục. |
+
+---
+
+# B9. Mô hình hóa dữ liệu (Data Modeling)
+
+## 1. Xác định các thực thể
+
+### Khách hàng
+
+```text
+KhachHang(ID, Ten, SDT, Email, MatKhau, DiaChi)
+
+TaiXe(ID, Ten, SDT, Email, MatKhau, TrangThai, ViTri)
+
+ChuyenDi(ID, KhachHangID, TaiXeID, DiemDon, DiemDen, LoaiXe, TrangThai, ThoiGianDat, ThoiGianHoanThanh)
+
+ThanhToan(ID, ChuyenDiID, SoTien, PhuongThuc, TrangThai, ThoiGianThanhToan)
+
+DanhGia(ID, ChuyenDiID, KhachHangID, TaiXeID, SoSao, NhanXet)
+
+ThongBao(ID, NguoiNhanID, ChuyenDiID, NoiDung, LoaiThongBao, TrangThai, ThoiGianGui)
+
+
+KhachHang
+    │
+    │ 1 - N
+    ▼
+ChuyenDi
+    │
+    │ N - 1
+    ▼
+TaiXe
+    │
+    │ 1 - 1
+    ▼
+PhuongTien
+
+ChuyenDi
+    │
+    │ 1 - 1
+    ▼
+ThanhToan
+
+ChuyenDi
+    │
+    │ 1 - 1
+    ▼
+DanhGia
+
+ChuyenDi
+    │
+    │ 1 - N
+    ▼
+ThongBao
+
+```
+# B10. Xác định Non-Functional Requirements
+
+| Mã | Nhóm | Yêu cầu |
+|---|---|---|
+| **NFR-01** | **Hiệu năng** | Hệ thống phải đáp ứng tốt khi số lượng khách hàng và tài xế tăng cao, đặc biệt vào giờ cao điểm. |
+| **NFR-02** | **Khả năng mở rộng** | Có thể mở rộng độc lập các thành phần khi tải tăng mà không ảnh hưởng toàn bộ hệ thống. |
+| **NFR-03** | **Tính sẵn sàng** | Lỗi ở thanh toán hoặc thông báo không được làm toàn bộ hệ thống đặt xe ngừng hoạt động. |
+| **NFR-04** | **Bảo mật** | Người dùng phải được xác thực và các chức năng quản trị phải được phân quyền. |
+| **NFR-05** | **Bảo vệ dữ liệu** | Thông tin cá nhân, phương tiện, vị trí và giao dịch phải được bảo vệ. |
+| **NFR-06** | **Khả năng bảo trì** | Cho phép thêm chức năng mới hoặc thay đổi một thành phần mà hạn chế ảnh hưởng đến các chức năng khác. |
+| **NFR-07** | **Audit / Logging** | Hệ thống phải lưu vết các thao tác quan trọng để phục vụ kiểm tra và xử lý sự cố. |
+| **NFR-08** | **Tích hợp** | Có khả năng tích hợp với nhà cung cấp thanh toán và các kênh thông báo bên ngoài. |
+
+---
+
+# B11. Vẽ Use Case và đặc tả Use Case
+
+## 1. Use Case Diagram
+
+```mermaid
+flowchart LR
+    KH[Khách hàng]
+    TX[Tài xế]
+    NV[Nhân viên vận hành]
+    AD[Admin]
+    PAY[Payment Provider]
+    NOTI[Notification Provider]
+
+    UC1((Đăng nhập))
+    UC2((Đặt chuyến))
+    UC3((Tìm tài xế))
+    UC4((Theo dõi chuyến))
+    UC5((Thanh toán))
+    UC6((Đánh giá tài xế))
+    UC7((Quản lý tài xế))
+    UC8((Cập nhật trạng thái chuyến))
+    UC9((Quản lý khách hàng))
+    UC10((Quản lý chuyến đi))
+    UC11((Báo cáo))
+    UC12((Gửi thông báo))
+
+    KH --> UC1
+    KH --> UC2
+    KH --> UC4
+    KH --> UC5
+    KH --> UC6
+
+    TX --> UC1
+    TX --> UC3
+    TX --> UC8
+
+    NV --> UC9
+    NV --> UC7
+    NV --> UC10
+    NV --> UC11
+
+    AD --> UC9
+    AD --> UC7
+    AD --> UC11
+
+    UC5 --> PAY
+    UC12 --> NOTI
+    UC2 --> UC3
+    UC2 --> UC12
+    UC3 --> UC12
+    UC8 --> UC12
+    UC5 --> UC12
+```
+# B12. Acceptance Criteria – Tiêu chí nghiệm thu
+
+## 1. Mục đích
+
+Acceptance Criteria là **tập hợp các điều kiện/quy tắc** dùng để xác nhận hệ thống đã đáp ứng yêu cầu của khách hàng.
+
+> Dự án được xem là **hoàn thành và có thể nghiệm thu** khi các chức năng quan trọng hoạt động đúng và đáp ứng các tiêu chí đã thống nhất.
+
+---
+
+## 2. Acceptance Criteria của CAB System
+
+| Mã | Chức năng | Tiêu chí nghiệm thu |
+|---|---|---|
+| **AC-01** | Đăng nhập | Người dùng nhập đúng tài khoản/mật khẩu thì đăng nhập thành công; sai thông tin thì hệ thống thông báo lỗi. |
+| **AC-02** | Đặt chuyến | Khách hàng nhập được điểm đón, điểm đến, chọn loại xe và tạo được yêu cầu đặt chuyến. |
+| **AC-03** | Tìm tài xế | Hệ thống tìm được tài xế đang sẵn sàng và phù hợp với loại xe khách hàng yêu cầu. |
+| **AC-04** | Không có tài xế | Nếu không có tài xế phù hợp, hệ thống phải thông báo rõ ràng cho khách hàng. |
+| **AC-05** | Tài xế từ chối | Khi tài xế từ chối/không phản hồi, hệ thống phải tiếp tục tìm tài xế khác mà khách hàng không cần đặt lại. |
+| **AC-06** | Theo dõi chuyến | Khách hàng xem được trạng thái chuyến: đã nhận chuyến, tài xế đến, đã đón khách, đang di chuyển và hoàn thành. |
+| **AC-07** | Thanh toán | Khách hàng có thể thanh toán bằng tiền mặt hoặc phương thức điện tử. |
+| **AC-08** | Thanh toán thất bại | Khi thanh toán điện tử thất bại, hệ thống thông báo lỗi và cho phép xử lý lại theo chính sách. |
+| **AC-09** | Quản lý tài xế | Nhân viên có thể quản lý thông tin tài xế, phương tiện và trạng thái hoạt động. |
+| **AC-10** | Bảo mật | Người dùng phải đăng nhập để sử dụng chức năng yêu cầu tài khoản; chức năng quản trị phải được phân quyền. |
+| **AC-11** | Thông báo | Khách hàng và tài xế nhận được các thông báo quan trọng liên quan đến chuyến đi và thanh toán. |
+| **AC-12** | Ổn định hệ thống | Lỗi ở thanh toán hoặc thông báo không được làm toàn bộ hệ thống đặt xe ngừng hoạt động. |
+
+---
+
+## 3. Điều kiện để dự án được nghiệm thu
+
+Dự án CAB System được xem là **hoàn thành và đủ điều kiện nghiệm thu** khi:
+
+- [ ] Các chức năng trong phạm vi MVP hoạt động đúng.
+- [ ] Khách hàng có thể **đặt chuyến và theo dõi chuyến**.
+- [ ] Hệ thống có thể **tìm và phân công tài xế**.
+- [ ] Hệ thống xử lý được trường hợp **không có tài xế**.
+- [ ] Hệ thống xử lý được trường hợp **tài xế từ chối/không phản hồi**.
+- [ ] Hệ thống **tính cước và thanh toán** đúng.
+- [ ] Có xử lý trường hợp **thanh toán thất bại**.
+- [ ] Tài xế có thể **cập nhật trạng thái chuyến**.
+- [ ] Nhân viên vận hành có thể **quản lý khách hàng và tài xế**.
+- [ ] Các yêu cầu cơ bản về **bảo mật và phân quyền** được đáp ứng.
+- [ ] Các chức năng chính đã được **kiểm thử và không còn lỗi nghiêm trọng**.
+- [ ] Khách hàng xác nhận hệ thống đáp ứng các yêu cầu đã thống nhất.
+
+---
+
+## 4. Kết luận
+
+> **Acceptance Criteria trả lời câu hỏi: "Khi nào hệ thống được coi là hoàn thành?"**
+>
+> CAB System được nghiệm thu khi **các yêu cầu chức năng trong phạm vi MVP hoạt động đúng, các trường hợp ngoại lệ quan trọng được xử lý, yêu cầu bảo mật cơ bản được đáp ứng và khách hàng xác nhận hệ thống đạt yêu cầu.**
+
+# B13. Traceability Requirements – Ma trận truy xuất nguồn gốc yêu cầu
+
+## 1. Mục đích
+
+**Traceability Requirements** là ma trận dùng để **truy xuất và liên kết các yêu cầu trong toàn bộ dự án**, từ:
+
+> **Business Requirement → Functional Requirement → Use Case → Acceptance Criteria**
+
+Mục đích là đảm bảo **mọi yêu cầu của khách hàng đều được phân tích, xây dựng, kiểm thử và nghiệm thu**, không bị bỏ sót.
+
+---
+
+## 2. Ma trận truy xuất nguồn gốc yêu cầu
+
+| Business Requirement | Functional Requirement | Use Case | Acceptance Criteria |
+|---|---|---|---|
+| **BR-01: Đặt chuyến** | **FR-06: Đặt chuyến** | **UC-02: Đặt chuyến** | **AC-02: Khách hàng tạo được yêu cầu đặt chuyến** |
+| **BR-02: Tìm tài xế** | **FR-01: Xác định vị trí**<br>**FR-02: Tìm tài xế**<br>**FR-03: Lọc loại xe**<br>**FR-04: Tính khoảng cách**<br>**FR-05: Xử lý từ chối** | **UC-03: Tìm tài xế** | **AC-03: Tìm được tài xế phù hợp**<br>**AC-04: Xử lý khi không có tài xế**<br>**AC-05: Xử lý tài xế từ chối** |
+| **BR-03: Theo dõi chuyến** | **FR-07: Theo dõi chuyến** | **UC-04: Theo dõi chuyến** | **AC-06: Khách hàng theo dõi được trạng thái chuyến** |
+| **BR-04: Thanh toán** | **FR-08: Tính cước**<br>**FR-09: Thanh toán** | **UC-05: Thanh toán** | **AC-07: Thanh toán tiền mặt/điện tử**<br>**AC-08: Xử lý thanh toán thất bại** |
+| **BR-05: Quản lý khách hàng** | **FR-10: Quản lý khách hàng** | **UC-01: Đăng nhập**<br>**UC-07: Quản lý khách hàng** | **AC-01: Đăng nhập đúng/sai** |
+| **BR-06: Quản lý tài xế** | **FR-11: Quản lý tài xế** | **UC-08: Quản lý tài xế** | **AC-09: Quản lý được tài xế và phương tiện** |
+| **BR-07: Thông báo** | **FR-20: Thông báo trạng thái**<br>**FR-21: Thông báo chuyến mới** | **UC-02: Đặt chuyến**<br>**UC-03: Tìm tài xế** | **AC-11: Gửi được thông báo quan trọng** |
+| **BR-08: Bảo mật** | **NFR-04: Bảo mật**<br>**NFR-05: Bảo vệ dữ liệu** | **UC-01: Đăng nhập** | **AC-10: Xác thực và phân quyền** |
+
+---
+
+## 3. Truy xuất theo chiều ngược
+
+```text
+Business Requirement
+        ↓
+Functional Requirement
+        ↓
+Use Case
+        ↓
+Acceptance Criteria
+        ↓
+Test Case
+        ↓
+Kết quả kiểm thử
 
 
 
