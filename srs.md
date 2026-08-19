@@ -288,31 +288,252 @@ Hỗ trợ doanh nghiệp phát triển lâu dài
 
 ---
 
-# 3. Ma trận Stakeholder – Power / Interest
+
+## 3. Ma trận Stakeholder
+
 
 ```text
-                    MỨC ĐỘ QUAN TÂM (INTEREST)
-                THẤP                         CAO
-                  │                            │
-                  │                            │
-       ┌──────────┼────────────────────────────┐
-       │          │                            │
-       │          │    QUẢN LÝ CHẶT CHẼ       │
-       │          │                            │
-  CAO  │          │    • Ban giám đốc          │
-       │          │    • Nhân viên vận hành    │
-       │          │    • Admin                 │
-       │          │    • BA                    │
-       │          │    • IT / Technical        │
-       │          │                            │
-MỨC    ├──────────┼────────────────────────────┤
-ĐỘ     │          │                            │
-ẢNH    │  GIỮ    │    THAM GIA / LẤY FEEDBACK│
-HƯỞNG  │  HÀI LÒNG│                            │
-       │          │    • Khách hàng            │
-  THẤP │          │    • Tài xế                │
-       │          │    • Development Team      │
-       │          │    • Payment Provider      │
-       │          │    • Notification Provider │
-       └──────────┴────────────────────────────┘
+                         MỨC ĐỘ QUAN TÂM
+                    Thấp                  Cao
+                 ┌─────────────────┬─────────────────────┐
+                 │                 │                     │
+      CAO        │  GIỮ HÀI LÒNG   │  QUẢN LÝ CHẶT CHẼ   │
+                 │                 │                     │
+                 │ - Nhà cung cấp  │ - Ban giám đốc      │
+                 │   thanh toán    │ - Nhân viên vận hành│
+                 │ - Nhà cung cấp  │ - BA                │
+                 │   thông báo     │ - Đội phát triển    │
+                 │                 │ - IT                │
+                 ├─────────────────┼─────────────────────┤
+                 │                 │                     │
+      THẤP       │    THEO DÕI     │    GIỮ THÔNG TIN    │
+                 │                 │                     │
+                 │ - Bên hỗ trợ    │ - Khách hàng        │
+                 │   gián tiếp     │ - Tài xế            │
+                 │                 │                     │
+                 └─────────────────┴─────────────────────┘
+
+                         MỨC ĐỘ ẢNH HƯỞNG
+
+```
+
+
+# B3. Xác định Business Role
+
+| Mã | Mục đích của nghiệp vụ | Business Role |
+|---|---|---|
+| **BC-01** | **Tăng hiệu quả thanh toán** | Cho phép hệ thống tự động tính cước, hỗ trợ thanh toán tiền mặt/thanh toán điện tử và xử lý kết quả giao dịch |
+| **BC-02** | **Giảm thời gian tìm tài xế** | Cho phép hệ thống tự động tìm và ưu tiên tài xế phù hợp, gần khách hàng |
+| **BC-03** | **Nâng cao trải nghiệm khách hàng** | Cho phép khách hàng đặt xe, theo dõi trạng thái chuyến, nhận thông báo và đánh giá tài xế |
+| **BC-04** | **Tăng hiệu quả vận hành** | Cho phép nhân viên vận hành quản lý khách hàng, tài xế, phương tiện và chuyến đi trên một hệ thống |
+| **BC-05** | **Giảm thời gian xử lý khi tài xế từ chối chuyến** | Cho phép hệ thống tự động tìm tài xế khác khi tài xế được đề xuất không phản hồi hoặc từ chối |
+| **BC-06** | **Cải thiện khả năng theo dõi chuyến đi** | Cho phép hệ thống cập nhật và hiển thị trạng thái chuyến từ lúc đặt xe đến khi hoàn thành |
+| **BC-07** | **Nâng cao khả năng quản lý doanh thu** | Cho phép hệ thống lưu trữ và tra cứu thông tin cước phí, thanh toán và lịch sử giao dịch |
+| **BC-08** | **Tăng hiệu quả thông báo** | Cho phép hệ thống gửi thông báo đến khách hàng và tài xế theo từng sự kiện của chuyến đi |
+| **BC-09** | **Tăng khả năng kiểm soát và bảo mật** | Cho phép xác thực người dùng, phân quyền thao tác và lưu vết các hoạt động quan trọng |
+| **BC-10** | **Hỗ trợ ra quyết định kinh doanh** | Cho phép ban lãnh đạo theo dõi báo cáo về số chuyến, doanh thu, tỷ lệ hoàn thành, tỷ lệ hủy và hiệu quả tài xế |
+| **BC-11** | **Tăng khả năng mở rộng hệ thống** | Cho phép hệ thống mở rộng số lượng khách hàng, tài xế và chuyến đi mà không ảnh hưởng đến các chức năng đang hoạt động |
+| **BC-12** | **Hỗ trợ phát triển dịch vụ trong tương lai** | Cho phép dễ dàng bổ sung loại dịch vụ, phương thức thanh toán, nhà cung cấp thanh toán và kênh thông báo mới |
+
+---
+
+# B4. Phạm vi dự án – Minimal Valuable Project (MVP)
+
+## 1. Mục tiêu
+
+Xác định **phạm vi tối thiểu nhưng có giá trị** để hệ thống CAB có thể vận hành được các nghiệp vụ cốt lõi trong giai đoạn đầu.
+
+---
+
+## 2. Phạm vi 
+
+### 2.1. Quản lý khách hàng
+
+Hệ thống cho phép:
+
+- Đăng ký tài khoản khách hàng
+- Đăng nhập
+- Cập nhật thông tin cá nhân
+- Quản lý thông tin khách hàng
+- Xem trạng thái tài khoản
+
+**Giá trị mang lại:**
+
+> Có dữ liệu khách hàng để phục vụ quy trình đặt xe và quản lý người dùng.
+
+---
+
+### 2.2. Quản lý tài xế
+
+Hệ thống cho phép:
+
+- Đăng ký tài khoản tài xế hoặc nhân viên vận hành tạo tài khoản
+- Đăng nhập
+- Cập nhật thông tin cá nhân
+- Quản lý thông tin phương tiện
+- Cập nhật trạng thái hoạt động:
+  - Sẵn sàng
+  - Không sẵn sàng
+- Quản lý thông tin tài xế trong hệ thống
+
+**Giá trị mang lại:**
+
+> Có dữ liệu tài xế và trạng thái hoạt động để phục vụ việc phân công chuyến.
+
+---
+
+# B5. Xác nhận với khách hàng và chuyển đổi thành Business Requirement
+
+## 1. Business Requirement
+
+| Mã | Tên | Diễn giải |
+|---|---|---|
+| **BR-01** | **Cho phép đặt chuyến** | Hệ thống cho phép khách hàng tạo yêu cầu đặt chuyến bằng cách xác định vị trí hiện tại, nhập/chọn điểm đón, điểm đến và lựa chọn loại xe phù hợp. |
+| **BR-02** | **Tìm tài xế** | Hệ thống tự động tìm tài xế phù hợp với nhu cầu chuyến đi dựa trên vị trí, trạng thái sẵn sàng, loại xe và các tiêu chí vận hành đã được xác định. |
+| **BR-03** | **Theo dõi chuyến đi** | Hệ thống cho phép khách hàng theo dõi chuyến đi trong suốt quá trình di chuyển và xem trạng thái hiện tại của chuyến. |
+| **BR-04** | **Hỗ trợ thanh toán** | Hệ thống cho phép khách hàng thanh toán tiền mặt hoặc thanh toán điện tử/chuyển khoản sau khi chuyến đi hoàn thành. |
+| **BR-05** | **Quản lý khách hàng** | Hệ thống cho phép khách hàng đăng ký, đăng nhập, cập nhật thông tin cá nhân và quản lý tài khoản. |
+| **BR-06** | **Quản lý tài xế** | Hệ thống cho phép tài xế đăng ký hoặc được nhân viên vận hành tạo tài khoản, cập nhật thông tin cá nhân, phương tiện và trạng thái hoạt động. |
+| **BR-07** | **Xử lý tài xế từ chối chuyến** | Khi tài xế không phản hồi hoặc từ chối chuyến, hệ thống tự động tiếp tục tìm tài xế phù hợp khác mà không yêu cầu khách hàng tạo lại yêu cầu. |
+| **BR-08** | **Thông báo trạng thái chuyến** | Hệ thống gửi thông báo cho khách hàng và tài xế khi có các sự kiện quan trọng như tiếp nhận yêu cầu, tài xế nhận chuyến, tài xế đến điểm đón, hoàn thành chuyến và kết quả thanh toán. |
+| **BR-09** | **Tính cước chuyến đi** | Hệ thống xác định số tiền khách hàng phải trả dựa trên loại dịch vụ và thông tin của chuyến đi. |
+| **BR-10** | **Quản lý vận hành** | Hệ thống cho phép nhân viên vận hành quản lý khách hàng, tài xế, phương tiện và chuyến đi; đồng thời theo dõi và xử lý các trường hợp chuyến bị lỗi. |
+| **BR-11** | **Quản lý lịch sử** | Hệ thống cho phép khách hàng xem lịch sử chuyến đi, số tiền đã thanh toán và cho phép nhân viên tra cứu lịch sử giao dịch. |
+| **BR-12** | **Đánh giá tài xế** | Sau khi chuyến đi hoàn thành, hệ thống cho phép khách hàng đánh giá tài xế. |
+| **BR-13** | **Phân quyền và bảo mật** | Hệ thống yêu cầu xác thực người dùng, kiểm soát quyền truy cập của nhân viên và bảo vệ thông tin cá nhân, phương tiện, vị trí và giao dịch. |
+| **BR-14** | **Báo cáo hoạt động** | Hệ thống cung cấp báo cáo về số lượng chuyến, doanh thu, tỷ lệ hoàn thành, tỷ lệ hủy và hiệu quả hoạt động của tài xế. |
+| **BR-15** | **Khả năng mở rộng** | Hệ thống cho phép mở rộng thêm loại dịch vụ, phương thức thanh toán, nhà cung cấp thanh toán và kênh thông báo mà không phải xây dựng lại toàn bộ hệ thống. |
+
+# B6. Business Process – Quy trình nghiệp vụ đặt xe CAB System
+
+## 1. Business Process tổng thể
+
+```mermaid
+flowchart TD
+    A[Khách hàng đăng nhập] --> B[Nhập điểm đón và điểm đến]
+    B --> C[Chọn loại xe]
+    C --> D[Gửi yêu cầu đặt xe]
+    D --> E[Hệ thống tiếp nhận yêu cầu]
+
+    E --> F[Tìm tài xế phù hợp]
+    F --> G{Có tài xế phù hợp?}
+
+    G -- Không --> H[Thông báo không tìm được tài xế]
+    H --> Z[Kết thúc]
+
+    G -- Có --> I[Gửi thông báo cho tài xế]
+    I --> J{Tài xế chấp nhận?}
+
+    J -- Không --> K[Tìm tài xế khác]
+    K --> F
+
+    J -- Có --> L[Thông báo tài xế cho khách hàng]
+    L --> M[Tài xế di chuyển đến điểm đón]
+    M --> N[Cập nhật: Đã đến điểm đón]
+    N --> O[Đón khách]
+    O --> P[Cập nhật: Đã đón khách]
+    P --> Q[Thực hiện chuyến đi]
+    Q --> R[Cập nhật: Đang di chuyển]
+    R --> S[Hoàn thành chuyến]
+    S --> T[Tính cước]
+
+    T --> U{Phương thức thanh toán}
+    U -- Tiền mặt --> V[Khách hàng thanh toán tiền mặt]
+    U -- Điện tử --> W[Gửi yêu cầu đến Payment Provider]
+
+    W --> X{Thanh toán thành công?}
+    X -- Có --> Y[Ghi nhận thanh toán]
+    X -- Không --> AA[Thông báo thanh toán thất bại]
+    AA --> AB[Xử lý thanh toán lại theo chính sách]
+    AB --> Y
+
+    V --> Y
+    Y --> AC[Thông báo hoàn thành chuyến và kết quả thanh toán]
+    AC --> AD[Khách hàng đánh giá tài xế]
+    AD --> AE[Kết thúc]
+
+```
+# B7. Phân rã yêu cầu chức năng
+
+## Chức năng: Tìm tài xế
+
+| Mã | Tên | Diễn giải |
+|---|---|---|
+| **FR-01** | Xác định vị trí khách hàng | Hệ thống xác định vị trí/điểm đón của khách hàng. |
+| **FR-02** | Tìm tài xế sẵn có | Hệ thống tìm các tài xế đang sẵn sàng nhận chuyến. |
+| **FR-03** | Lọc theo loại xe | Hệ thống lọc tài xế theo loại xe khách hàng lựa chọn. |
+| **FR-04** | Tính khoảng cách | Hệ thống tính khoảng cách từ tài xế đến điểm đón để chọn tài xế phù hợp. |
+| **FR-05** | Xử lý từ chối | Nếu tài xế từ chối hoặc không phản hồi, hệ thống tiếp tục tìm tài xế khác. |
+
+## Chức năng: Đặt và theo dõi chuyến
+
+| Mã | Tên | Diễn giải |
+|---|---|---|
+| **FR-06** | Đặt chuyến | Khách hàng nhập điểm đón, điểm đến, chọn loại xe và gửi yêu cầu đặt xe. |
+| **FR-07** | Theo dõi chuyến | Khách hàng theo dõi trạng thái chuyến trong quá trình di chuyển. |
+
+## Chức năng: Thanh toán
+
+| Mã | Tên | Diễn giải |
+|---|---|---|
+| **FR-08** | Tính cước | Hệ thống tính số tiền khách hàng cần thanh toán sau khi hoàn thành chuyến. |
+| **FR-09** | Thanh toán | Hệ thống hỗ trợ thanh toán tiền mặt và thanh toán điện tử. |
+
+## Chức năng: Quản lý người dùng
+
+| Mã | Tên | Diễn giải |
+|---|---|---|
+| **FR-10** | Quản lý khách hàng | Khách hàng đăng ký, đăng nhập và cập nhật thông tin cá nhân. |
+| **FR-11** | Quản lý tài xế | Quản lý thông tin tài xế, phương tiện và trạng thái sẵn sàng nhận chuyến. |
+
+> **MVP tập trung vào 11 yêu cầu chức năng cốt lõi trên. Không sử dụng AI để tìm đường đi ngắn nhất.**
+
+
+# B8. Quy tắc nghiệp vụ và ngoại lệ
+
+## 1. Business Rule
+
+| Mã | Business Rule | Quy tắc |
+|---|---|---|
+| **BR-01** | Tìm tài xế | Hệ thống chỉ tìm các tài xế đang **sẵn sàng nhận chuyến** và phù hợp với loại xe khách hàng chọn. |
+| **BR-02** | Không có tài xế | Nếu không tìm được tài xế phù hợp, hệ thống phải **thông báo cho khách hàng** và kết thúc yêu cầu đặt xe. |
+| **BR-03** | Tài xế từ chối | Nếu tài xế từ chối hoặc không phản hồi trong thời gian quy định, hệ thống phải **tiếp tục tìm tài xế khác**. |
+| **BR-04** | Tính cước | Sau khi chuyến hoàn thành, hệ thống phải **tính số tiền khách hàng cần thanh toán** theo loại dịch vụ và thông tin chuyến đi. |
+| **BR-05** | Thanh toán thất bại | Nếu thanh toán điện tử thất bại, hệ thống phải **thông báo cho khách hàng** và cho phép thực hiện thanh toán lại theo chính sách. |
+| **BR-06** | Cập nhật trạng thái | Tài xế phải cập nhật trạng thái chuyến theo đúng trình tự: **đã đến → đã đón khách → đang di chuyển → hoàn thành**. |
+| **BR-07** | Phân quyền | Chỉ nhân viên có quyền phù hợp mới được thực hiện các thao tác quản trị nhạy cảm. |
+| **BR-08** | Bảo mật | Người dùng phải đăng nhập và xác thực trước khi sử dụng các chức năng yêu cầu tài khoản. |
+
+---
+
+## 2. Các trường hợp ngoại lệ
+
+| Mã | Trường hợp ngoại lệ | Cách xử lý |
+|---|---|---|
+| **EX-01** | Không có tài xế phù hợp | Thông báo cho khách hàng rằng chưa tìm được tài xế và kết thúc yêu cầu. |
+| **EX-02** | Tài xế từ chối chuyến | Hệ thống tự động tìm tài xế tiếp theo. |
+| **EX-03** | Tài xế không phản hồi | Sau thời gian quy định, hệ thống chuyển sang tìm tài xế khác. |
+| **EX-04** | Thanh toán điện tử thất bại | Thông báo lỗi và cho phép khách hàng thanh toán lại theo chính sách. |
+| **EX-05** | Mất kết nối mạng | Hệ thống giữ trạng thái hiện tại và đồng bộ lại khi kết nối được khôi phục. |
+| **EX-06** | Thông báo thất bại | Hệ thống không được làm dừng quy trình đặt xe; có thể ghi nhận lỗi và thực hiện gửi lại. |
+| **EX-07** | Lỗi hệ thống thanh toán | Chỉ chức năng thanh toán bị ảnh hưởng, các chức năng đặt xe và theo dõi chuyến vẫn tiếp tục hoạt động. |
+
+---
+
+## 3. Quy tắc quan trọng nhất
+
+> **Không có tài xế:** Thông báo khách hàng → kết thúc yêu cầu.
+
+> **Tài xế từ chối/không phản hồi:** Tự động tìm tài xế khác → không yêu cầu khách hàng đặt lại.
+
+> **Thanh toán thất bại:** Thông báo khách hàng → cho phép thanh toán lại → không làm dừng toàn bộ hệ thống.
+
+> **Lỗi thông báo:** Ghi nhận lỗi và thử gửi lại → không làm ảnh hưởng đến quy trình đặt xe.
+
+> **Mất kết nối:** Giữ trạng thái hiện tại → đồng bộ lại khi kết nối được khôi phục.
+
+
+
+
+
 
