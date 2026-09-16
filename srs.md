@@ -5,11 +5,11 @@
 
 **Công ty ABC** cung cấp dịch vụ **đặt xe trực tuyến**.
 
-Hiện tại khách hàng có thể đặt xe bằng:
-- Gọi **tổng đài**
-- Sử dụng **ứng dụng đơn giản**
+Công ty ABC cung cấp dịch vụ đặt xe trực tuyến. Hiện tại khách hàng có thể yêu cầu xe thông qua tổng đài hoặc ứng dụng hiện có.
 
-Tuy nhiên, hệ thống hiện tại còn nhiều hạn chế và không phù hợp khi doanh nghiệp muốn mở rộng quy mô.
+Tuy nhiên, quy trình vận hành còn phụ thuộc nhiều vào thao tác thủ công, đặc biệt trong việc tìm và phân công tài xế. Khách hàng chưa có khả năng theo dõi đầy đủ trạng thái chuyến đi, dữ liệu thanh toán chưa được quản lý tập trung và hệ thống hiện tại khó mở rộng khi số lượng khách hàng, tài xế và chuyến đi tăng.
+
+Doanh nghiệp mong muốn xây dựng một CAB System mới nhằm tự động hóa quy trình đặt xe, tìm và phân công tài xế, thực hiện chuyến, tính cước, thanh toán, thông báo và đánh giá.
 
 ---
 
